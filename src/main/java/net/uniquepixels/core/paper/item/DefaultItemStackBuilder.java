@@ -16,9 +16,9 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
     protected final ItemStack itemStack;
     protected final M meta;
 
-    public DefaultItemStackBuilder(ItemStack itemStack, M meta) {
+    public DefaultItemStackBuilder(ItemStack itemStack) {
         this.itemStack = itemStack;
-        this.meta = meta;
+        this.meta = ((M) itemStack.getItemMeta());
     }
 
     public DefaultItemStackBuilder(Material material) {
@@ -103,6 +103,12 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
     @Override
     public DefaultItemStackBuilder<M> removeFlags(ItemFlag... flags) {
         this.meta.removeItemFlags(flags);
+        return this;
+    }
+
+    @Override
+    public DefaultItemStackBuilder<M> setAmount(int amount) {
+        this.itemStack.setAmount(amount);
         return this;
     }
 
