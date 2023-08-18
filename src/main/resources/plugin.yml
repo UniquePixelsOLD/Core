@@ -1,0 +1,5 @@
+name: PaperCore
+main: net.uniquepixels.core.paper.PaperCore
+version: 1.0.0
+authors: [ DasShorty ]
+api-version: 1.20
