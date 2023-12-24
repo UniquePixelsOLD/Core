@@ -1,15 +1,19 @@
 plugins {
     id("java")
     id("io.papermc.paperweight.userdev") version "1.5.5"
+    id("maven-publish")
+    id("com.github.johnrengelman.shadow") version ("8.1.1")
 }
 
 group = "net.uniquepixels"
-version = "1.0-SNAPSHOT"
+version = "latest"
 
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
 }
+
+val lombokVersion = "1.18.28"
 
 dependencies {
     implementation(project(":core-api"))
@@ -17,10 +21,22 @@ dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.2.0-SNAPSHOT")
     annotationProcessor("com.velocitypowered:velocity-api:3.2.0-SNAPSHOT")
 
-    paperweight.paperDevBundle("1.20.1-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
 
-    implementation("org.projectlombok:lombok:1.18.28")
-    annotationProcessor("org.projectlombok:lombok:1.18.28")
+    implementation("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "net.uniquepixels"
+            artifactId = "core"
+            version = this.version
+
+            from(components["java"])
+        }
+    }
 }
 
 tasks.create("generateTemplate") {
@@ -32,15 +48,12 @@ tasks {
         dependsOn(reobfJar)
     }
 
-//    shadowJar {
-//        dependencies {
-//            exclude(dependency("eu.cloudnetservice.cloudnet:bridge:$cloudNetVersion"))
-//            exclude(dependency("eu.cloudnetservice.cloudnet:common:$cloudNetVersion"))
-//            exclude(dependency("eu.cloudnetservice.cloudnet:driver:$cloudNetVersion"))
-//            exclude(dependency("eu.cloudnetservice.cloudnet:platform-inject-api:$cloudNetVersion"))
-//            exclude(dependency("eu.cloudnetservice.cloudnet:wrapper-jvm:$cloudNetVersion"))
-//        }
-//    }
+   shadowJar {
+       dependencies {
+           exclude(dependency("org.projectlombok:lombok:$lombokVersion"))
+           include(dependency("net.uniquepixels:core-api:latest"))
+       }
+   }
 
     compileJava {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
