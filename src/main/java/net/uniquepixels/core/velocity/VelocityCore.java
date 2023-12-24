@@ -7,6 +7,8 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import lombok.Getter;
 import lombok.val;
+import net.uniquepixels.core.velocity.gameengine.GameEngineMessages;
+import net.uniquepixels.core.velocity.messaging.MessageChannelHandler;
 import net.uniquepixels.core.velocity.resourcepack.ResourcePackPlayerJoinListener;
 import net.uniquepixels.core.velocity.resourcepack.management.ResourcePackHandler;
 import org.slf4j.Logger;
@@ -44,6 +46,10 @@ public class VelocityCore {
     public void onProxyInitializeEvent(ProxyInitializeEvent event) {
 
         //resourcePack();
+        MessageChannelHandler channelHandler = new MessageChannelHandler(this.server);
+
+        GameEngineMessages gameEngineMessages = new GameEngineMessages(channelHandler, this.server);
+
     }
 
     private void resourcePack() {
