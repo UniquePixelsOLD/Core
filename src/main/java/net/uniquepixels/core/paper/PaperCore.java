@@ -1,5 +1,7 @@
 package net.uniquepixels.core.paper;
 
+import net.uniquepixels.core.paper.gui.backend.UIHolder;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PaperCore extends JavaPlugin {
@@ -18,6 +20,10 @@ public class PaperCore extends JavaPlugin {
                             | |                                  \s
                             |_|                                  \s
                 """);
+
+        UIHolder uiHolder = new UIHolder();
+
+        this.getServer().getServicesManager().register(UIHolder.class, uiHolder, this, ServicePriority.Normal);
 
     }
 
