@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.val;
 import net.uniquepixels.core.velocity.gameengine.GameEngineMessages;
 import net.uniquepixels.core.velocity.messaging.MessageChannelHandler;
+import net.uniquepixels.core.velocity.messaging.impl.MessageAcrossNetwork;
 import net.uniquepixels.core.velocity.resourcepack.ResourcePackPlayerJoinListener;
 import net.uniquepixels.core.velocity.resourcepack.management.ResourcePackHandler;
 import org.slf4j.Logger;
@@ -47,6 +48,8 @@ public class VelocityCore {
 
         //resourcePack();
         MessageChannelHandler channelHandler = new MessageChannelHandler(this.server);
+
+        channelHandler.registerChannel(new MessageAcrossNetwork(this.server));
 
         GameEngineMessages gameEngineMessages = new GameEngineMessages(channelHandler, this.server);
 
