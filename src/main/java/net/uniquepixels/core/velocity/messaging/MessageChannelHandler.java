@@ -4,6 +4,7 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.PluginMessageEvent;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
+import net.kyori.adventure.key.Key;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class MessageChannelHandler {
         if (this.identifierMap.containsKey("minecraft: " + channel.id()))
             return;
 
-        MinecraftChannelIdentifier identifier = MinecraftChannelIdentifier.forDefaultNamespace(channel.id());
+        MinecraftChannelIdentifier identifier = MinecraftChannelIdentifier.from(Key.key("uniquepixels", channel.id()));
 
         this.server.getChannelRegistrar().register(identifier);
         this.identifierMap.put(identifier.getId(), channel);
