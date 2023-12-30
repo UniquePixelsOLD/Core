@@ -1,7 +1,6 @@
 package net.uniquepixels.core.velocity.gameengine;
 
 import com.velocitypowered.api.proxy.ProxyServer;
-import net.uniquepixels.core.velocity.gameengine.channel.RegisterGameServerChannel;
 import net.uniquepixels.core.velocity.messaging.MessageChannelHandler;
 
 public class GameEngineMessages {
@@ -18,7 +17,7 @@ public class GameEngineMessages {
 
     private void setupChannel() {
 
-        this.channelHandler.registerChannel(new RegisterGameServerChannel(register, proxyServer));
+
 
     }
 
