@@ -13,7 +13,6 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
-val lombokVersion = "1.18.28"
 
 dependencies {
     implementation(project(":core-api"))
@@ -23,8 +22,9 @@ dependencies {
 
     paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
 
-    implementation("org.projectlombok:lombok:$lombokVersion")
-    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+    // Javalin
+    implementation("io.javalin:javalin:5.6.3")
 }
 
 publishing {
@@ -50,7 +50,6 @@ tasks {
 
    shadowJar {
        dependencies {
-           exclude(dependency("org.projectlombok:lombok:$lombokVersion"))
            include(dependency("net.uniquepixels:core-api:latest"))
        }
    }
