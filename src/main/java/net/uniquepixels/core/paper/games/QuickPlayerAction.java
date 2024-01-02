@@ -10,19 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public record QuickPlayerAction(Player player) {
 
-    public void sendPlayerToGame(GameTypes game) {
-
-        ByteArrayDataOutput data = ByteStreams.newDataOutput();
-
-        data.writeUTF(player.getUniqueId().toString());
-        data.writeUTF(game.name());
-
-        PaperCore plugin = JavaPlugin.getPlugin(PaperCore.class);
-
-        player.sendPluginMessage(plugin, "uniquepixels:up-send-player-to-game", data.toByteArray());
-
-    }
-
     public void sendMessageAcrossNetwork(Component message) {
 
         ByteArrayDataOutput data = ByteStreams.newDataOutput();
