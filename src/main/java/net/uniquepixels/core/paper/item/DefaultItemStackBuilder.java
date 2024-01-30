@@ -113,6 +113,12 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
     }
 
     @Override
+    public DefaultItemStackBuilder<M> setUnbreakable(boolean unbreakable) {
+        this.meta.setUnbreakable(unbreakable);
+        return this;
+    }
+
+    @Override
     public M getItemMeta() {
         return this.meta;
     }

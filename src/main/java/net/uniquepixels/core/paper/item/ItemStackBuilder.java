@@ -19,6 +19,7 @@ public interface ItemStackBuilder<I extends ItemStackBuilder<I,M>, M extends Ite
     I addFlags(ItemFlag... flags);
     I removeFlags(ItemFlag... flags);
     I setAmount(int amount);
+    I setUnbreakable(boolean unbreakable);
     M getItemMeta();
 
 
