@@ -1,7 +1,5 @@
 package net.uniquepixels.core.paper.gui.item;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.uniquepixels.core.paper.gui.UISlot;
 import org.bukkit.inventory.ItemStack;
@@ -10,38 +8,65 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 
 
-@Setter
 public class UIItem {
 
-  private final ItemStack itemStack;
-  @Getter
-  private final UISlot originSlot;
-  @Getter
-  private UISlot currentSlot;
-  @Getter
-  private Component displayText;
-  @Getter
-  private List<Component> displayLore;
+    private final ItemStack itemStack;
+    private final UISlot originSlot;
+    private UISlot currentSlot;
+    private Component displayText;
+    private List<Component> displayLore;
 
-  public UIItem(ItemStack itemStack, UISlot originSlot) {
-    this.itemStack = itemStack;
-    this.originSlot = originSlot;
-    this.currentSlot = originSlot;
-  }
+    public UIItem(ItemStack itemStack, UISlot originSlot) {
+        this.itemStack = itemStack;
+        this.originSlot = originSlot;
+        this.currentSlot = originSlot;
+    }
 
-  public ItemStack buildItem() {
+    public ItemStack getItemStack() {
+        return itemStack;
+    }
 
-    if (itemStack == null)
-      throw new IllegalStateException("item stack can't be nul!");
+    public UISlot getOriginSlot() {
+        return originSlot;
+    }
 
-    ItemMeta meta = itemStack.getItemMeta();
-    meta.displayName(displayText);
-    meta.lore(displayLore);
+    public UISlot getCurrentSlot() {
+        return currentSlot;
+    }
 
-    itemStack.setItemMeta(meta);
+    public void setCurrentSlot(UISlot currentSlot) {
+        this.currentSlot = currentSlot;
+    }
 
-    return itemStack;
-  }
+    public Component getDisplayText() {
+        return displayText;
+    }
+
+    public void setDisplayText(Component displayText) {
+        this.displayText = displayText;
+    }
+
+    public List<Component> getDisplayLore() {
+        return displayLore;
+    }
+
+    public void setDisplayLore(List<Component> displayLore) {
+        this.displayLore = displayLore;
+    }
+
+    public ItemStack buildItem() {
+
+        if (itemStack == null)
+            throw new IllegalStateException("item stack can't be nul!");
+
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.displayName(displayText);
+        meta.lore(displayLore);
+
+        itemStack.setItemMeta(meta);
+
+        return itemStack;
+    }
 
 
 }

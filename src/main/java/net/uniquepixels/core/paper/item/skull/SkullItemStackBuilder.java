@@ -30,11 +30,6 @@ public class SkullItemStackBuilder extends DefaultItemStackBuilder<SkullMeta> {
         return this;
     }
 
-    public SkullItemStackBuilder setNodeBlockSound(NamespacedKey noteBlockSound) {
-        getItemMeta().setNoteBlockSound(noteBlockSound);
-        return this;
-    }
-
     public SkullItemStackBuilder setSkullOwner(@NotNull String url) {
 
         String finalUrl = "";
@@ -45,7 +40,7 @@ public class SkullItemStackBuilder extends DefaultItemStackBuilder<SkullMeta> {
                 finalUrl = "https://textures.minecraft.net/texture/" +
                         "647cf0f3b9ec9df2485a9cd4795b60a391c8e6ebac96354de06e3357a9a88607";
             else finalUrl = TextureFetcher.getSkinUrl(uuid.toString());
-        } else if (finalUrl.isEmpty()) {
+        } else {
             finalUrl = "https://textures.minecraft.net/texture/" + url;
         }
 

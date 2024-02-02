@@ -1,7 +1,5 @@
 package net.uniquepixels.core.paper.gui.types.chest;
 
-import lombok.Getter;
-import lombok.val;
 import net.kyori.adventure.text.Component;
 import net.uniquepixels.core.paper.gui.UIReference;
 import net.uniquepixels.core.paper.gui.UIRow;
@@ -14,16 +12,15 @@ import net.uniquepixels.core.paper.gui.item.UIItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class ChestUI implements InventoryHolder, UIReference {
+public abstract class ChestUI implements UIReference {
 
-    @Getter
     protected final Map<UIItem, UIAction> itemsMap = new HashMap<>();
     protected final UIRow rows;
     private final Component uiTitle;
@@ -44,6 +41,26 @@ public abstract class ChestUI implements InventoryHolder, UIReference {
         }
     }
 
+    public Map<UIItem, UIAction> getItemsMap() {
+        return itemsMap;
+    }
+
+    public UIRow getRows() {
+        return rows;
+    }
+
+    public Component getUiTitle() {
+        return uiTitle;
+    }
+
+    public UIBackground getBackground() {
+        return background;
+    }
+
+    public void setBackground(UIBackground background) {
+        this.background = background;
+    }
+
     @Override
     public void open(Player player) {
         try {
@@ -56,16 +73,12 @@ public abstract class ChestUI implements InventoryHolder, UIReference {
 
     protected abstract void initItems(Player opener) throws OutOfInventoryException;
 
-    public void setBackground(UIBackground background) {
-        this.background = background;
-    }
-
     protected void refreshInventory() throws OutOfInventoryException {
         itemsMap.forEach((item, uiAction) -> this.inventory.setItem(item.getOriginSlot().getSlot(), item.buildItem()));
 
         for (int i = 0; i < this.rows.getSlots(); i++) {
 
-            val item = inventory.getItem(i);
+            ItemStack item = inventory.getItem(i);
 
             if (background.type() == UIBackground.BackgroundType.NONE)
                 continue;
@@ -75,8 +88,8 @@ public abstract class ChestUI implements InventoryHolder, UIReference {
                 switch (background.type()) {
                     case FULL -> {
 
-                        val uiItem = background.backgroundItems().get(0);
-                        val itemStack = uiItem.buildItem();
+                        UIItem uiItem = background.backgroundItems().get(0);
+                        ItemStack itemStack = uiItem.buildItem();
 
                         item(new UIItem(itemStack, UISlot.fromSlotId(i).get()), (clicker, clickedItem, action, event) -> true);
 
@@ -89,8 +102,8 @@ public abstract class ChestUI implements InventoryHolder, UIReference {
 
                             if (i != 0) {
 
-                                val uiItem = background.backgroundItems().get(0);
-                                val itemStack = uiItem.buildItem();
+                                UIItem uiItem = background.backgroundItems().get(0);
+                                ItemStack itemStack = uiItem.buildItem();
                                 item(new UIItem(itemStack, UISlot.fromSlotId(i).get()), (clicker, clickedItem, action, event) -> true);
 
                                 inventory.setItem(i, itemStack);
@@ -100,7 +113,7 @@ public abstract class ChestUI implements InventoryHolder, UIReference {
                             throw new IllegalArgumentException("Not enough items for a self background in the list. Required: " + this.rows.getSlots() + " got: " + background.backgroundItems().size() + " items");
 
                         } else {
-                            val uiItem = background.backgroundItems().get(i);
+                            UIItem uiItem = background.backgroundItems().get(i);
                             item(new UIItem(uiItem.buildItem(), UISlot.fromSlotId(i).get()), (clicker, clickedItem, action, event) -> true);
                         }
 

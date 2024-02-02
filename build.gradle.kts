@@ -43,6 +43,10 @@ tasks.create("generateTemplate") {
 
 }
 
+tasks.create("ready") {
+    dependsOn("build", "publishToMavenLocal")
+}
+
 tasks {
     assemble {
         dependsOn(reobfJar)

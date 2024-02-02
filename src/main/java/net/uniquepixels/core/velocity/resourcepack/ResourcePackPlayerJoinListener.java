@@ -7,8 +7,6 @@ import com.velocitypowered.api.event.player.ServerPostConnectEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.player.ResourcePackInfo;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
 import net.uniquepixels.core.velocity.resourcepack.management.ResourcePackHandler;
 import net.uniquepixels.core.velocity.resourcepack.management.ResourcePackVersion;
 
@@ -16,12 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public class ResourcePackPlayerJoinListener {
 
-    private final ProxyServer proxyServer;
     final List<UUID> playerUUIDs = new ArrayList<>();
+    private final ProxyServer proxyServer;
     private final ResourcePackHandler resourcePackHandler;
+
+    public ResourcePackPlayerJoinListener(ProxyServer proxyServer, ResourcePackHandler resourcePackHandler) {
+        this.proxyServer = proxyServer;
+        this.resourcePackHandler = resourcePackHandler;
+    }
 
     @Subscribe
     @Beta
@@ -33,7 +35,7 @@ public class ResourcePackPlayerJoinListener {
 
         playerUUIDs.add(player.getUniqueId());
 
-        val protocol = player.getProtocolVersion().getProtocol();
+        int protocol = player.getProtocolVersion().getProtocol();
         ResourcePackVersion resourcePackVersion = ResourcePackVersion.getByProtocolVersion(protocol);
 
         assert resourcePackVersion != null;

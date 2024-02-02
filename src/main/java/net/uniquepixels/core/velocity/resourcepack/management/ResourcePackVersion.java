@@ -1,9 +1,6 @@
 package net.uniquepixels.core.velocity.resourcepack.management;
 
 
-import lombok.Getter;
-
-@Getter
 public enum ResourcePackVersion {
 
     V1_19(760, "1.19"),
@@ -26,5 +23,13 @@ public enum ResourcePackVersion {
             }
         }
         return null;
+    }
+
+    public int getProtocolVersion() {
+        return protocolVersion;
+    }
+
+    public String getVersion() {
+        return version;
     }
 }

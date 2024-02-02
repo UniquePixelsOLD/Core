@@ -1,11 +1,11 @@
 package net.uniquepixels.core.paper.chat;
 
-import lombok.SneakyThrows;
-import lombok.val;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +19,12 @@ public class ChatHead {
         return uuid.toString().replace("-", "");
     }
 
-    @SneakyThrows
-    public List<Component> getLines(UUID uuid) {
-        val rawId = convertUID(uuid);
+    public List<Component> getLines(UUID uuid) throws IOException {
+        String rawId = convertUID(uuid);
 
-        val list = new ArrayList<Component>();
+        List<Component> list = new ArrayList<>();
 
-        val bufferedImage = ImageIO.read(new URL(BASE_URL + rawId));
+        BufferedImage bufferedImage = ImageIO.read(new URL(BASE_URL + rawId));
 
         for (int y = 0; y < bufferedImage.getHeight(); y++) {
 

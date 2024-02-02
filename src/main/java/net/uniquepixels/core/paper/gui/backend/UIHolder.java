@@ -1,6 +1,5 @@
 package net.uniquepixels.core.paper.gui.backend;
 
-import lombok.val;
 import net.uniquepixels.core.paper.gui.UIReference;
 import net.uniquepixels.core.paper.gui.UIType;
 import net.uniquepixels.core.paper.gui.types.chest.ChestUI;
@@ -38,7 +37,7 @@ public class UIHolder implements Listener {
 
     @EventHandler
     public void onPrepareAnvil(PrepareAnvilEvent event) {
-        val player = (Player) event.getViewers().get(0);
+        Player player = (Player) event.getViewers().get(0);
 
         if (isPlayerNotInUI(player))
             return;
@@ -55,10 +54,10 @@ public class UIHolder implements Listener {
         if (isPlayerNotInUI(player))
             return;
 
-        val uiReference = getUi(player);
+        UIReference uiReference = getUi(player);
 
         if (Objects.requireNonNull(uiReference.type()) == UIType.CHEST) {
-            val ui = (ChestUI) uiReference;
+            ChestUI ui = (ChestUI) uiReference;
 
             if (event.getInventory().getHolder() == ui.getInventory().getHolder())
                 openUIs.remove(player);
@@ -75,10 +74,10 @@ public class UIHolder implements Listener {
         if (isPlayerNotInUI(player))
             return;
 
-        val uiReference = getUi(player);
+        UIReference uiReference = getUi(player);
 
         if (Objects.requireNonNull(uiReference.type()) == UIType.CHEST) {
-            val ui = (ChestUI) uiReference;
+            ChestUI ui = (ChestUI) uiReference;
 
             if (event.getInventory().getHolder() != ui.getInventory().getHolder())
                 return;

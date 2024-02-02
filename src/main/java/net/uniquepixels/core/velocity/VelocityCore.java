@@ -5,9 +5,6 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
-import lombok.Getter;
-import lombok.val;
-import net.uniquepixels.core.velocity.gameengine.GameEngineMessages;
 import net.uniquepixels.core.velocity.messaging.MessageChannelHandler;
 import net.uniquepixels.core.velocity.messaging.impl.MessageAcrossNetwork;
 import net.uniquepixels.core.velocity.resourcepack.ResourcePackPlayerJoinListener;
@@ -20,9 +17,8 @@ import org.slf4j.Logger;
         version = "latest",
         authors = {"DasShorty"}
 )
-@Getter
-public class VelocityCore {
 
+public class VelocityCore {
     private final ProxyServer server;
     private final Logger logger;
 
@@ -43,6 +39,14 @@ public class VelocityCore {
                 """);
     }
 
+    public ProxyServer getServer() {
+        return server;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
     @Subscribe
     public void onProxyInitializeEvent(ProxyInitializeEvent event) {
 
@@ -51,12 +55,10 @@ public class VelocityCore {
 
         channelHandler.registerChannel(new MessageAcrossNetwork(this.server));
 
-        GameEngineMessages gameEngineMessages = new GameEngineMessages(channelHandler, this.server);
-
     }
 
     private void resourcePack() {
-        val resourcePackHandler = new ResourcePackHandler(this, this.server);
+        ResourcePackHandler resourcePackHandler = new ResourcePackHandler(this, this.server);
         this.server.getEventManager().register(this, new ResourcePackPlayerJoinListener(this.server, resourcePackHandler));
     }
 }
