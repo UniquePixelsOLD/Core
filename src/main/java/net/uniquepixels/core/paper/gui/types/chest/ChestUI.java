@@ -72,9 +72,10 @@ public abstract class ChestUI implements UIReference {
     }
 
     protected abstract void initItems(Player opener) throws OutOfInventoryException;
+    public abstract void onClose(Player player);
 
     protected void refreshInventory() throws OutOfInventoryException {
-        itemsMap.forEach((item, uiAction) -> this.inventory.setItem(item.getOriginSlot().getSlot(), item.buildItem()));
+        itemsMap.forEach((item, uiAction) -> this.inventory.setItem(item.getOriginSlot().getSlot(), item.getItemStack()));
 
         for (int i = 0; i < this.rows.getSlots(); i++) {
 
@@ -89,7 +90,7 @@ public abstract class ChestUI implements UIReference {
                     case FULL -> {
 
                         UIItem uiItem = background.backgroundItems().getFirst();
-                        ItemStack itemStack = uiItem.buildItem();
+                        ItemStack itemStack = uiItem.getItemStack();
 
                         item(new UIItem(itemStack, UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
 

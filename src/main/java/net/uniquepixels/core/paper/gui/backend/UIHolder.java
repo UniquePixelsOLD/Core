@@ -58,6 +58,8 @@ public class UIHolder implements Listener {
         if (Objects.requireNonNull(uiReference.type()) == UIType.CHEST) {
             ChestUI ui = (ChestUI) uiReference;
 
+            ui.onClose(player);
+
             if (event.getInventory().getHolder() == ui.getInventory().getHolder())
                 openUIs.remove(player);
         }
