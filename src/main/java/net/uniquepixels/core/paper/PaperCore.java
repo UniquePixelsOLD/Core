@@ -1,6 +1,8 @@
 package net.uniquepixels.core.paper;
 
 import net.uniquepixels.core.paper.gui.backend.UIHolder;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,6 +26,9 @@ public class PaperCore extends JavaPlugin {
         UIHolder uiHolder = new UIHolder();
 
         this.getServer().getServicesManager().register(UIHolder.class, uiHolder, this, ServicePriority.Normal);
+
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(uiHolder, this);
 
     }
 

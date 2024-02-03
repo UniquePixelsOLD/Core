@@ -5,10 +5,9 @@ import net.uniquepixels.core.paper.gui.UIType;
 import net.uniquepixels.core.paper.gui.types.chest.ChestUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.event.inventory.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -45,7 +44,7 @@ public class UIHolder implements Listener {
         event.getInventory().setRepairCost(0);
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGH)
     public void onInventoryClose(InventoryCloseEvent event) {
 
         if (!(event.getPlayer() instanceof Player player))
@@ -65,7 +64,7 @@ public class UIHolder implements Listener {
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onInventoryClick(@NotNull InventoryClickEvent event) {
 
         if (!(event.getWhoClicked() instanceof Player player))
@@ -85,9 +84,8 @@ public class UIHolder implements Listener {
             if (event.getClickedInventory() == null)
                 return;
 
-            if (!ui.allowItemMovementInOtherInventories())
-                if (event.getClickedInventory().getHolder() != ui.getInventory().getHolder())
-                    return;
+            if (ui.allowItemMovementInOtherInventories())
+                return;
 
             ui.getItemsMap().forEach((uiItem, uiAction) -> {
 

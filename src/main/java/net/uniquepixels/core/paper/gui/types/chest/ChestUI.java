@@ -88,36 +88,21 @@ public abstract class ChestUI implements UIReference {
                 switch (background.type()) {
                     case FULL -> {
 
-                        UIItem uiItem = background.backgroundItems().get(0);
+                        UIItem uiItem = background.backgroundItems().getFirst();
                         ItemStack itemStack = uiItem.buildItem();
 
-                        item(new UIItem(itemStack, UISlot.fromSlotId(i).get()), (clicker, clickedItem, action, event) -> true);
+                        item(new UIItem(itemStack, UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
 
                         inventory.setItem(i, itemStack);
 
                     }
-                    case SELF -> {
-
-                        if (background.backgroundItems().size() < this.rows.getSlots()) {
-
-                            if (i != 0) {
-
-                                UIItem uiItem = background.backgroundItems().get(0);
-                                ItemStack itemStack = uiItem.buildItem();
-                                item(new UIItem(itemStack, UISlot.fromSlotId(i).get()), (clicker, clickedItem, action, event) -> true);
-
-                                inventory.setItem(i, itemStack);
-
-                            }
-
-                            throw new IllegalArgumentException("Not enough items for a self background in the list. Required: " + this.rows.getSlots() + " got: " + background.backgroundItems().size() + " items");
-
-                        } else {
-                            UIItem uiItem = background.backgroundItems().get(i);
-                            item(new UIItem(uiItem.buildItem(), UISlot.fromSlotId(i).get()), (clicker, clickedItem, action, event) -> true);
+                    case SELF -> background.backgroundItems().forEach(uiItem -> {
+                        try {
+                            item(uiItem, (clicker, clickedItem, action, event) -> true);
+                        } catch (OutOfInventoryException e) {
+                            throw new RuntimeException(e);
                         }
-
-                    }
+                    });
                 }
 
             }

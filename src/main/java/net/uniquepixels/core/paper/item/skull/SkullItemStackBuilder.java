@@ -44,7 +44,7 @@ public class SkullItemStackBuilder extends DefaultItemStackBuilder<SkullMeta> {
             finalUrl = "https://textures.minecraft.net/texture/" + url;
         }
 
-        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
+        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), "Testuser");
         byte[] data = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", finalUrl).getBytes());
         gameProfile.getProperties().put("textures", new Property("textures", new String(data)));
         try {

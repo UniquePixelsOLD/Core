@@ -44,7 +44,7 @@ tasks.create("generateTemplate") {
 }
 
 tasks.create("ready") {
-    dependsOn("build", "publishToMavenLocal")
+    dependsOn("reobfJar", "publishToMavenLocal")
 }
 
 tasks {
@@ -60,7 +60,7 @@ tasks {
 
     compileJava {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
-        options.release.set(17)
+        options.release.set(21)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything

@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("maven-publish")
+    id("com.github.johnrengelman.shadow") version ("8.1.1")
 }
 
 group = "net.uniquepixels"
@@ -17,6 +18,14 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.28")
 
     implementation("org.reflections:reflections:0.10.2")
+}
+
+tasks {
+    shadowJar {
+        dependencies {
+            include(dependency("org.mongodb:mongodb-driver-sync:4.10.1"))
+        }
+    }
 }
 
 publishing {

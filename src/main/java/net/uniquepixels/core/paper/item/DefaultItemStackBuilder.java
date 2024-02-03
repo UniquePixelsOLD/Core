@@ -2,10 +2,12 @@ package net.uniquepixels.core.paper.item;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,5 +123,21 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
     @Override
     public M getItemMeta() {
         return this.meta;
+    }
+
+    @Override
+    public <K, V> DefaultItemStackBuilder<M> addData(NamespacedKey namespacedKey, PersistentDataType<K, V> type, V data) {
+        this.meta.getPersistentDataContainer().set(namespacedKey, type, data);
+        return this;
+    }
+
+    @Override
+    public boolean hasData(NamespacedKey namespacedKey) {
+        return this.meta.getPersistentDataContainer().has(namespacedKey);
+    }
+
+    @Override
+    public <K, V> V getData(NamespacedKey namespacedKey, PersistentDataType<K, V> type) {
+        return this.meta.getPersistentDataContainer().get(namespacedKey, type);
     }
 }
