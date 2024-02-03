@@ -21,24 +21,17 @@ import java.util.Map;
 
 public abstract class ChestUI implements UIReference {
 
-    protected final Map<UIItem, UIAction> itemsMap = new HashMap<>();
     protected final UIRow rows;
     private final Component uiTitle;
     private final Inventory inventory;
+    protected Map<UIItem, UIAction> itemsMap = new HashMap<>();
     private UIBackground background;
 
-    public ChestUI(Component uiTitle, UIRow rows, Player opener) {
+    public ChestUI(Component uiTitle, UIRow rows) {
         this.uiTitle = uiTitle;
         this.rows = rows;
         this.inventory = Bukkit.createInventory(this, rows.getSlots(), uiTitle);
-
         background = new UIBackground(UIBackground.BackgroundType.NONE, List.of());
-
-        try {
-            initItems(opener);
-        } catch (OutOfInventoryException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public Map<UIItem, UIAction> getItemsMap() {
@@ -64,7 +57,7 @@ public abstract class ChestUI implements UIReference {
     @Override
     public void open(Player player) {
         try {
-            refreshInventory();
+            refreshInventory(player);
         } catch (OutOfInventoryException e) {
             throw new RuntimeException(e);
         }
@@ -72,9 +65,12 @@ public abstract class ChestUI implements UIReference {
     }
 
     protected abstract void initItems(Player opener) throws OutOfInventoryException;
+
     public abstract void onClose(Player player);
 
-    protected void refreshInventory() throws OutOfInventoryException {
+    protected void refreshInventory(Player player) throws OutOfInventoryException {
+        this.itemsMap = new HashMap<>();
+        this.initItems(player);
         itemsMap.forEach((item, uiAction) -> this.inventory.setItem(item.getOriginSlot().getSlot(), item.getItemStack()));
 
         for (int i = 0; i < this.rows.getSlots(); i++) {
