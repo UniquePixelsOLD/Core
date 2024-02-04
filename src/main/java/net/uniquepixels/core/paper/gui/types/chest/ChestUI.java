@@ -10,6 +10,7 @@ import net.uniquepixels.core.paper.gui.exception.OutOfInventoryException;
 import net.uniquepixels.core.paper.gui.item.UIAction;
 import net.uniquepixels.core.paper.gui.item.UIItem;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -70,6 +71,7 @@ public abstract class ChestUI implements UIReference {
 
     protected void refreshInventory(Player player) throws OutOfInventoryException {
         this.itemsMap = new HashMap<>();
+        this.inventory.clear();
         this.initItems(player);
         itemsMap.forEach((item, uiAction) -> this.inventory.setItem(item.getOriginSlot().getSlot(), item.getItemStack()));
 
@@ -80,53 +82,42 @@ public abstract class ChestUI implements UIReference {
             if (background.type() == UIBackground.BackgroundType.NONE)
                 continue;
 
-            if (item == null) {
+            if (item != null && item.getType() != Material.AIR)
+                continue;
 
-                switch (background.type()) {
-                    case FULL -> {
 
-                        UIItem uiItem = background.backgroundItems().getFirst();
-                        ItemStack itemStack = uiItem.getItemStack();
+            switch (background.type()) {
+                case FULL -> {
 
-                        item(new UIItem(itemStack, UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
+                    UIItem uiItem = background.backgroundItems().getFirst();
+                    ItemStack itemStack = uiItem.getItemStack();
 
-                        inventory.setItem(i, itemStack);
+                    item(new UIItem(itemStack, UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
 
-                    }
-                    case SELF -> background.backgroundItems().forEach(uiItem -> {
-                        try {
-                            item(uiItem, (clicker, clickedItem, action, event) -> true);
-                        } catch (OutOfInventoryException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-                    case BOTTOM_LINE -> {
+                    inventory.setItem(i, itemStack);
 
-                        UIItem uiItem = background.backgroundItems().getFirst();
-
-                        switch (rows) {
-                            case CHEST_ROW_2 -> this.placeBackgroundItems(UIRow.CHEST_ROW_2, UIRow.CHEST_ROW_1, uiItem);
-                            case CHEST_ROW_3 -> this.placeBackgroundItems(UIRow.CHEST_ROW_3, UIRow.CHEST_ROW_2, uiItem);
-                            case CHEST_ROW_4 -> this.placeBackgroundItems(UIRow.CHEST_ROW_4, UIRow.CHEST_ROW_3, uiItem);
-                            case CHEST_ROW_5 -> this.placeBackgroundItems(UIRow.CHEST_ROW_5, UIRow.CHEST_ROW_4, uiItem);
-                            case CHEST_ROW_6 -> this.placeBackgroundItems(UIRow.CHEST_ROW_6, UIRow.CHEST_ROW_5, uiItem);
-                        }
-
-                    }
                 }
+                case SELF -> {
+                    if (background.backgroundItems().size() <= i)
+                        return;
 
+                    UIItem uiItem = background.backgroundItems().get(i);
+                    item(new UIItem(uiItem.getItemStack(), UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
+                    inventory.setItem(i, uiItem.getItemStack());
+                }
+                case BOTTOM_LINE -> {
+
+                    UIItem uiItem = background.backgroundItems().getFirst();
+
+                    if (i >= this.rows.getSlots() - 9) {
+                        item(new UIItem(uiItem.getItemStack(), UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
+                        inventory.setItem(i, uiItem.getItemStack());
+                    }
+
+
+                }
             }
 
-        }
-    }
-
-    private void placeBackgroundItems(UIRow origin, UIRow before, UIItem uiItem) throws OutOfInventoryException {
-        int startSlot = before.getSlots();
-        int endSlot = origin.getSlots() - 1;
-
-        for (int slot = startSlot; slot < endSlot; slot++) {
-            if (this.inventory.getItem(slot) == null)
-                item(new UIItem(uiItem.getItemStack(), UISlot.fromSlotId(slot).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
         }
     }
 
