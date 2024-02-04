@@ -15,6 +15,7 @@ public interface ItemStackBuilder<I extends ItemStackBuilder<I, M>, M extends It
     I displayName(Component text);
 
     I addLoreLine(Component text);
+    I setLoreLine(int position, Component text);
 
     I removeLoreLine(int line);
 

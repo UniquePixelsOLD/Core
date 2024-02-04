@@ -57,6 +57,20 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
     }
 
     @Override
+    public DefaultItemStackBuilder<M> setLoreLine(int position, Component text) {
+
+        ArrayList<Component> lore = new ArrayList<>();
+
+        if (this.meta.lore() != null)
+            lore = new ArrayList<>(Objects.requireNonNull(this.meta.lore()));
+
+        lore.set(position, text);
+        this.meta.lore(lore);
+
+        return this;
+    }
+
+    @Override
     public DefaultItemStackBuilder<M> removeLoreLine(int line) {
 
         ArrayList<Component> lore = new ArrayList<>();
