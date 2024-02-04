@@ -12,7 +12,8 @@ public record UIBackground(BackgroundType type, List<UIItem> backgroundItems) {
   public enum BackgroundType {
     FULL,
     NONE,
-    SELF
+    SELF,
+    BOTTOM_LINE
   }
 
 }

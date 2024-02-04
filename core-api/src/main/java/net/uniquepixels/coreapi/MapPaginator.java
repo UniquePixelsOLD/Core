@@ -1,8 +1,9 @@
 package net.uniquepixels.coreapi;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public record MapPaginator<K, V>(HashMap<K, V> data) {
+public record MapPaginator<K, V>(Map<K, V> data) {
 
     public HashMap<Integer, HashMap<K, V>> maxSizePerPage(int size) {
 

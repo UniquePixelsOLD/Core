@@ -100,10 +100,33 @@ public abstract class ChestUI implements UIReference {
                             throw new RuntimeException(e);
                         }
                     });
+                    case BOTTOM_LINE -> {
+
+                        UIItem uiItem = background.backgroundItems().getFirst();
+
+                        switch (rows) {
+                            case CHEST_ROW_2 -> this.placeBackgroundItems(UIRow.CHEST_ROW_2, UIRow.CHEST_ROW_1, uiItem);
+                            case CHEST_ROW_3 -> this.placeBackgroundItems(UIRow.CHEST_ROW_3, UIRow.CHEST_ROW_2, uiItem);
+                            case CHEST_ROW_4 -> this.placeBackgroundItems(UIRow.CHEST_ROW_4, UIRow.CHEST_ROW_3, uiItem);
+                            case CHEST_ROW_5 -> this.placeBackgroundItems(UIRow.CHEST_ROW_5, UIRow.CHEST_ROW_4, uiItem);
+                            case CHEST_ROW_6 -> this.placeBackgroundItems(UIRow.CHEST_ROW_6, UIRow.CHEST_ROW_5, uiItem);
+                        }
+
+                    }
                 }
 
             }
 
+        }
+    }
+
+    private void placeBackgroundItems(UIRow origin, UIRow before, UIItem uiItem) throws OutOfInventoryException {
+        int startSlot = before.getSlots();
+        int endSlot = origin.getSlots() - 1;
+
+        for (int slot = startSlot; slot < endSlot; slot++) {
+            if (this.inventory.getItem(slot) == null)
+                item(new UIItem(uiItem.getItemStack(), UISlot.fromSlotId(slot).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
         }
     }
 
