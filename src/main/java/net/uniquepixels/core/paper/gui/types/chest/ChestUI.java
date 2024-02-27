@@ -89,7 +89,7 @@ public abstract class ChestUI implements UIReference {
             switch (background.type()) {
                 case FULL -> {
 
-                    UIItem uiItem = background.backgroundItems().getFirst();
+                    UIItem uiItem = background.backgroundItems().get(0);
                     ItemStack itemStack = uiItem.getItemStack();
 
                     item(new UIItem(itemStack, UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
@@ -101,13 +101,13 @@ public abstract class ChestUI implements UIReference {
                     if (background.backgroundItems().size() <= i)
                         return;
 
-                    UIItem uiItem = background.backgroundItems().get(i);
+                    UIItem uiItem = background.backgroundItems().get(0);
                     item(new UIItem(uiItem.getItemStack(), UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
                     inventory.setItem(i, uiItem.getItemStack());
                 }
                 case BOTTOM_LINE -> {
 
-                    UIItem uiItem = background.backgroundItems().getFirst();
+                    UIItem uiItem = background.backgroundItems().get(0);
 
                     if (i >= this.rows.getSlots() - 9) {
                         item(new UIItem(uiItem.getItemStack(), UISlot.fromSlotId(i).orElse(UISlot.SLOT_0)), (clicker, clickedItem, action, event) -> true);
