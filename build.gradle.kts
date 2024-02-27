@@ -37,6 +37,16 @@ publishing {
             from(components["java"])
         }
     }
+    repositories {
+        maven {
+            name = "UniquePixels"
+            url = uri("https://repo.uniquepixels.net/repository/minecraft")
+            credentials {
+                username = "projectwizard"
+                password = System.getenv("UP_NEXUS_PASSWORD")
+            }
+        }
+    }
 }
 
 tasks.create("generateTemplate") {
@@ -44,7 +54,7 @@ tasks.create("generateTemplate") {
 }
 
 tasks.create("ready") {
-    dependsOn("reobfJar", "publishToMavenLocal")
+    dependsOn("reobfJar", "publish", "publishToMavenLocal")
 }
 
 tasks {
@@ -60,7 +70,7 @@ tasks {
 
     compileJava {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
-        options.release.set(21)
+        options.release.set(17)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
