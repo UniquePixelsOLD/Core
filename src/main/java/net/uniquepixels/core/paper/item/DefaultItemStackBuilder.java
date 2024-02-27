@@ -93,6 +93,12 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
     }
 
     @Override
+    public DefaultItemStackBuilder<M> setCustomModelData(int modelData) {
+        this.meta.setCustomModelData(modelData);
+        return this;
+    }
+
+    @Override
     public DefaultItemStackBuilder<M> setCustomMeta(ItemMeta meta) {
         this.itemStack.setItemMeta(meta);
         return this;

@@ -35,6 +35,8 @@ public interface ItemStackBuilder<I extends ItemStackBuilder<I, M>, M extends It
 
     I setUnbreakable(boolean unbreakable);
 
+    I setCustomModelData(int modelData);
+
     M getItemMeta();
 
     <K, V> I addData(NamespacedKey namespacedKey, PersistentDataType<K, V> type, V data);
