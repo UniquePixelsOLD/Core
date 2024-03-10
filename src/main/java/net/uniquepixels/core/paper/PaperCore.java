@@ -1,11 +1,17 @@
 package net.uniquepixels.core.paper;
 
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.translation.GlobalTranslator;
+import net.kyori.adventure.translation.TranslationRegistry;
 import net.uniquepixels.core.paper.chat.chatinput.ChatInputManager;
 import net.uniquepixels.core.paper.gui.backend.UIHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class PaperCore extends JavaPlugin {
 
@@ -23,6 +29,16 @@ public class PaperCore extends JavaPlugin {
                             | |                                  \s
                             |_|                                  \s
                 """);
+
+        ResourceBundle bundle = ResourceBundle.getBundle("translation");
+        ResourceBundle deBundle = ResourceBundle.getBundle("translation_de");
+
+        TranslationRegistry registry = TranslationRegistry.create(Key.key("uniquepixels:core"));
+
+        GlobalTranslator.translator().addSource(registry);
+
+        registry.registerAll(Locale.ENGLISH, bundle, true);
+        registry.registerAll(Locale.GERMAN, deBundle, true);
 
         UIHolder uiHolder = new UIHolder();
         ChatInputManager chatInputManager = new ChatInputManager();
