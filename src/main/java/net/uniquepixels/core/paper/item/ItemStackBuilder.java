@@ -23,6 +23,7 @@ public interface ItemStackBuilder<I extends ItemStackBuilder<I, M>, M extends It
 
     I setCustomMeta(ItemMeta meta);
 
+    @Deprecated
     I applyItemMeta();
 
     I addEnchantment(Enchantment enchantment, int level);

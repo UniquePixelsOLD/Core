@@ -31,6 +31,7 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
 
     @Override
     public ItemStack buildItem() {
+        this.itemStack.setItemMeta(this.meta);
         return itemStack;
     }
 
@@ -104,7 +105,7 @@ public class DefaultItemStackBuilder<M extends ItemMeta> implements ItemStackBui
         return this;
     }
 
-    @Override
+    @Override @Deprecated
     public DefaultItemStackBuilder<M> applyItemMeta() {
         this.itemStack.setItemMeta(meta);
         return this;
