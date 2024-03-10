@@ -9,10 +9,9 @@ public class MongoDatabase {
     private final MongoClient client;
     private final com.mongodb.client.MongoDatabase database;
 
-    public MongoDatabase(String connectionString) {
-
+    public MongoDatabase(String connectionString, String database) {
         this.client = MongoClients.create(connectionString);
-        this.database = this.client.getDatabase("uniquepixels");
+        this.database = this.client.getDatabase(database);
     }
 
     public <C> MongoCollection<C> collection(String collectionName, Class<C> documentClass) {
