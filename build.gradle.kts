@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.uniquepixels"
-version = "latest"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
