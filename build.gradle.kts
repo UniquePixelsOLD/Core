@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.uniquepixels"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -65,7 +65,7 @@ tasks {
 
    shadowJar {
        dependencies {
-           include(dependency("net.uniquepixels:core-api:latest"))
+           include(dependency("net.uniquepixels:core-api:1.0.1"))
        }
    }
 
