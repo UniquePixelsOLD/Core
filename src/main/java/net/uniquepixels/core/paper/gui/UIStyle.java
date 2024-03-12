@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 public class UIStyle {
 
     public static TextColor DEFAULT_COLOR = TextColor.fromHexString("#870ac2");
+    public static TextColor GRAY_WHITE = TextColor.fromHexString("#E5E5E5");
     public static Component PREFIX = Component.text("UniquePixels").color(TextColor.fromHexString("#870ac2")).append(Component.text(" » ").color(NamedTextColor.GRAY));
     public static Component UI_ARROW = Component.text(" » ").color(NamedTextColor.GRAY).style(builder -> builder.decoration(TextDecoration.ITALIC, false).build());
     public static Component MINUS = Component.translatable(" - ").color(NamedTextColor.DARK_GRAY);
