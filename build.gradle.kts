@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.uniquepixels"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -22,6 +22,7 @@ dependencies {
 
     paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
 
+    implementation("org.mongodb:mongodb-driver-sync:4.10.1")
 
     // Javalin
     implementation("io.javalin:javalin:5.6.3")
@@ -64,7 +65,7 @@ tasks {
 
    shadowJar {
        dependencies {
-           include(dependency("net.uniquepixels:core-api:latest"))
+           include(dependency("net.uniquepixels:core-api:1.0.1"))
        }
    }
 
