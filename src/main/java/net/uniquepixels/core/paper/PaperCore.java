@@ -5,6 +5,7 @@ import net.kyori.adventure.translation.GlobalTranslator;
 import net.kyori.adventure.translation.TranslationRegistry;
 import net.uniquepixels.core.paper.chat.chatinput.ChatInputManager;
 import net.uniquepixels.core.paper.gui.backend.UIHolder;
+import net.uniquepixels.core.paper.item.ItemCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicePriority;
@@ -48,6 +49,8 @@ public class PaperCore extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(uiHolder, this);
         pluginManager.registerEvents(chatInputManager, this);
+
+        getCommand("item").setExecutor(new ItemCommand());
 
 
     }

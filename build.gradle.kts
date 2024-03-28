@@ -27,6 +27,11 @@ dependencies {
 
     // Javalin
     implementation("io.javalin:javalin:5.6.3")
+
+    compileOnly("dev.s7a:base64-itemstack:1.0.0")
+
+    // OkHttp Client
+    implementation("com.squareup.okhttp3:okhttp:4.12.0") // https://square.github.io/okhttp/
 }
 
 publishing {
@@ -67,6 +72,7 @@ tasks {
    shadowJar {
        dependencies {
            include(dependency("net.uniquepixels:core-api:1.0.1"))
+           include(dependency("com.squareup.okhttp3:okhttp:4.12.0"))
        }
    }
 

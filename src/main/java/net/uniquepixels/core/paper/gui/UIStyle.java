@@ -3,7 +3,6 @@ package net.uniquepixels.core.paper.gui;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.translation.GlobalTranslator;
 import net.uniquepixels.core.paper.TextStyle;
@@ -12,6 +11,10 @@ import java.util.Locale;
 import java.util.function.Supplier;
 
 public class UIStyle {
+    @Deprecated
+    /**
+     @see TextStyle.PREFIX moved into other class
+     */
     public static Component PREFIX = Component.text("UniquePixels").color(TextStyle.PREFIX_COLOR).append(Component.text(" » ").color(NamedTextColor.GRAY));
     public static Component UI_ARROW = Component.text(" » ").color(NamedTextColor.GRAY).style(builder -> builder.decoration(TextDecoration.ITALIC, false).build());
     public static Component MINUS = Component.translatable(" - ").color(NamedTextColor.DARK_GRAY);

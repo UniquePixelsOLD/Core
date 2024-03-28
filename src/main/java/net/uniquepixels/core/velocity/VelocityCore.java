@@ -7,6 +7,8 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import net.uniquepixels.core.velocity.messaging.MessageChannelHandler;
 import net.uniquepixels.core.velocity.messaging.impl.MessageAcrossNetwork;
+import net.uniquepixels.core.velocity.player.PlayerListener;
+import net.uniquepixels.core.velocity.player.PlayerManager;
 import net.uniquepixels.core.velocity.resourcepack.ResourcePackPlayerJoinListener;
 import net.uniquepixels.core.velocity.resourcepack.management.ResourcePackHandler;
 import org.slf4j.Logger;
@@ -54,6 +56,9 @@ public class VelocityCore {
         MessageChannelHandler channelHandler = new MessageChannelHandler(this.server);
 
         channelHandler.registerChannel(new MessageAcrossNetwork(this.server));
+
+        PlayerManager playerManager = new PlayerManager();
+        this.server.getEventManager().register(this, new PlayerListener(playerManager));
 
     }
 
