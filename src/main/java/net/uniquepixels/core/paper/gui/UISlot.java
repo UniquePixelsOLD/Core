@@ -1,6 +1,9 @@
 package net.uniquepixels.core.paper.gui;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public enum UISlot {
@@ -66,6 +69,11 @@ public enum UISlot {
     UISlot(UIRow parent, int slot) {
         this.parent = parent;
         this.slot = slot;
+    }
+
+    public static List<UISlot> getSlotsForRow(UIRow row) {
+        return Arrays.stream(UISlot.values())
+                .filter(uiSlot -> uiSlot.parent == row).collect(Collectors.toList());
     }
 
     public static Optional<UISlot> fromSlotId(int slot) {

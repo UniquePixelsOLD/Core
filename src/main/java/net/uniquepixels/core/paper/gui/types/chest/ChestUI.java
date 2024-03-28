@@ -116,6 +116,17 @@ public abstract class ChestUI implements UIReference {
 
 
                 }
+
+                case LINE -> {
+
+                    for (UIItem uiItem : this.background.backgroundItems()) {
+
+                        item(uiItem, (clicker, clickedItem, action, event) -> true);
+                        inventory.setItem(uiItem.getOriginSlot().getSlot(), uiItem.getItemStack());
+
+                    }
+
+                }
             }
 
         }
