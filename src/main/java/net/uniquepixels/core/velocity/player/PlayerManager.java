@@ -80,7 +80,7 @@ public class PlayerManager {
     public Optional<NetworkPlayer> changeOnlineStatus(UUID uuid, boolean online) {
         Request request = new Request.Builder()
                 .put(RequestBody.create("", MediaType.get("application/json")))
-                .url(this.requestUrl + "change/locale/" + uuid.toString())
+                .url(this.requestUrl + "change/online/" + uuid.toString())
                 .header("online", String.valueOf(online))
                 .build();
 
