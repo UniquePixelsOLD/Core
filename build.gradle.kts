@@ -71,7 +71,7 @@ tasks {
 
    shadowJar {
        dependencies {
-           include(dependency("net.uniquepixels:core-api:1.0.1"))
+           include(dependency("net.uniquepixels:core-api:1.0.2"))
            include(dependency("com.squareup.okhttp3:okhttp:4.12.0"))
            include(dependency("org.jetbrains.kotlin:kotlin-stdlib:1.9.10"))
            include(dependency("org.jetbrains.kotlin:kotlin-stdlib.common:1.9.10"))
