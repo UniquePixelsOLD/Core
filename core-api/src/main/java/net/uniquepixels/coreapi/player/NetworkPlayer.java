@@ -1,6 +1,4 @@
-package net.uniquepixels.core.velocity.player;
-
-import org.apache.commons.lang.LocaleUtils;
+package net.uniquepixels.coreapi.player;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -22,7 +20,7 @@ public class NetworkPlayer {
     }
 
     public Locale getLocale() {
-        return LocaleUtils.toLocale(this.locale);
+        return Locale.forLanguageTag(this.locale);
     }
 
     public void setLocale(Locale locale) {

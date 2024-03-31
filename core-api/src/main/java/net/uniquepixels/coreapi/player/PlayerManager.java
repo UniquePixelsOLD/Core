@@ -1,4 +1,4 @@
-package net.uniquepixels.core.velocity.player;
+package net.uniquepixels.coreapi.player;
 
 import com.google.gson.Gson;
 import okhttp3.*;
@@ -82,6 +82,26 @@ public class PlayerManager {
                 .put(RequestBody.create("", MediaType.get("application/json")))
                 .url(this.requestUrl + "change/online/" + uuid.toString())
                 .header("online", String.valueOf(online))
+                .build();
+
+        try {
+            Response execute = this.httpClient.newCall(request).execute();
+
+            NetworkPlayer networkPlayer = new Gson().fromJson(execute.body().string(), NetworkPlayer.class);
+
+            return Optional.of(networkPlayer);
+
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+
+    }
+
+    public Optional<NetworkPlayer> changeServerStatus(UUID uuid, String server) {
+        Request request = new Request.Builder()
+                .put(RequestBody.create("", MediaType.get("application/json")))
+                .url(this.requestUrl + "change/server/" + uuid.toString())
+                .header("server", server)
                 .build();
 
         try {

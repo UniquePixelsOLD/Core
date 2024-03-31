@@ -8,9 +8,9 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import net.uniquepixels.core.velocity.messaging.MessageChannelHandler;
 import net.uniquepixels.core.velocity.messaging.impl.MessageAcrossNetwork;
 import net.uniquepixels.core.velocity.player.PlayerListener;
-import net.uniquepixels.core.velocity.player.PlayerManager;
 import net.uniquepixels.core.velocity.resourcepack.ResourcePackPlayerJoinListener;
 import net.uniquepixels.core.velocity.resourcepack.management.ResourcePackHandler;
+import net.uniquepixels.coreapi.player.PlayerManager;
 import org.slf4j.Logger;
 
 @Plugin(

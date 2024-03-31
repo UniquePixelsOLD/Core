@@ -25,6 +25,7 @@ public class PaperCore extends JavaPlugin {
         registry.registerAll(Locale.ENGLISH, bundle, false);
         registry.registerAll(Locale.GERMAN, deBundle, false);
 
+        registry.defaultLocale(Locale.ENGLISH);
         GlobalTranslator.translator().addSource(registry);
 
         this.getSLF4JLogger().info("""

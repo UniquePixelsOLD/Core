@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.uniquepixels"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -18,6 +18,11 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.28")
 
     implementation("org.reflections:reflections:0.10.2")
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.10.1")
+
 }
 
 tasks {
