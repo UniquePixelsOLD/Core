@@ -8,11 +8,20 @@ public class NetworkPlayer {
     private final UUID id;
     private String locale;
     private boolean online;
+    private String server;
 
     public NetworkPlayer(UUID id, Locale locale, boolean online) {
         this.id = id;
         this.locale = locale.getLanguage();
         this.online = online;
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
     }
 
     public UUID getId() {
@@ -21,6 +30,10 @@ public class NetworkPlayer {
 
     public Locale getLocale() {
         return Locale.forLanguageTag(this.locale);
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     public void setLocale(Locale locale) {
