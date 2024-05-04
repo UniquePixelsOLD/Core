@@ -1,9 +1,9 @@
 plugins {
     id("java")
-    id("io.papermc.paperweight.userdev") version "1.5.5"
+    id("io.papermc.paperweight.userdev") version "1.6.0"
     id("maven-publish")
     id("com.github.johnrengelman.shadow") version ("8.1.1")
-    id("xyz.jpenilla.run-paper") version "2.2.2"
+    id("xyz.jpenilla.run-paper") version("2.2.2")
 }
 
 group = "net.uniquepixels"
